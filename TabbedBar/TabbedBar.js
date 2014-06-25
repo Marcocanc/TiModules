@@ -48,7 +48,7 @@ module.exports = (function () {
         //setting options/default values
         options.barBorderWidth ? barBorderWidth = options.barBorderWidth : barBorderWidth = _toDp(1);
         options.selectedColor ? barSelectedTextColor = options.selectedColor : barSelectedTextColor = "#ffffff";
-        options.tintColor ? barTintColor = options.tintColor : barTintColor = "#828282";
+        options.tintColor ? barTintColor = options.tintColor : barTintColor = "#007AFF";
         options.color ? barTextColor = options.color : barTextColor = barTintColor;
         options.backgroundColor ? barBackgroundColor = options.backgroundColor : barBackgroundColor = "transparent";
         options.font ? barTextFont = options.font : barTextFont = {fontSize:_toDp(9)};
