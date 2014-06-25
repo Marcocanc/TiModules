@@ -81,10 +81,10 @@ module.exports = (function () {
         });
 		
 		//passing positioning data to the view
-        if (options.top) bar.top = options.top;
-        if (options.bottom) bar.bottom = options.bottom;
-        if (options.left) bar.left = options.left;
-        if (options.right) bar.right = options.right;
+        if (typeof options.top !== "undefined") bar.top = options.top;
+        if (typeof options.bottom !== "undefined") bar.bottom = options.bottom;
+        if (typeof options.left !== "undefined") bar.left = options.left;
+        if (typeof options.right !== "undefined") bar.right = options.right;
 		
 		
 		//create Buttons and add behavior
