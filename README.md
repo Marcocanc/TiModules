@@ -11,6 +11,8 @@ Use this module like you would use the native iOS tabbedBar:
     var tb = require("/ui/modules/TabbedBar");
     var bar = tb.createTabbedBar({labels:["Tab 1", "Tab 2", "Tab 3"], index:0, selectedColor: "#ffffff",tintColor: "#007AFF", top:10, width:"90%"});
     
+The following additional options are available for android:
+
 - `barBorderWidth` (width of the border)
 - `selectedColor` (selected Text Color)
 - `color` (text color)
