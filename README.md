@@ -16,6 +16,6 @@ Use this module like you would use the native iOS tabbedBar:
 The following additional options are available for android:
 
 - `barBorderWidth` (width of the border)
-- `selectedColor` (selected Text Color)
-- `color` (text color)
+- `selectedColor` (Text Color for the selected tab)
+- `color` (text color - same as tintColor if undefined)
 - `font` (font for the buttons)
