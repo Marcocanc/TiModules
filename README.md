@@ -1,4 +1,4 @@
-#Titanium UI modules
+#Titanium JavaScript modules
 A collection of JavaScript Modules that create cross-platform versions of iOS native UI elements
 
 ##TabbedBar
