@@ -21,3 +21,24 @@ The following additional options are available for android:
 - `selectedColor` (text color for the selected tab)
 - `color` (text color - same as tintColor if undefined)
 - `font` (font for the buttons)
+
+##getJSON
+
+The getJSON module provides a function similar to the [jQuery getJSON](https://api.jquery.com/jquery.getjson/) with the addition of an error callback
+
+###Usage
+
+	getJSON(url, dataObject, callback, errorCallback);
+
+####Example
+
+	var mod = require("/data/getJSON");
+
+	mod.getJSON("http://api.openweathermap.org/data/2.5/weather", {q:"munich, de"}, callback, errorCallback);
+		
+	function callback(res){
+		Ti.API.info("getJSON response: "+e.weather[0].description);
+	}
+	function errorCallback(err){
+		Ti.API.info(err.error);
+	}
