@@ -21,7 +21,7 @@ module.exports = (function () {
                 if (data[name]) datastring += "=" + data[name];
                 i++;
             }
-            url = url + encodeURIComponent(datastring);
+            url = url + Ti.Network.encodeURIComponent(datastring);
 
         }
 

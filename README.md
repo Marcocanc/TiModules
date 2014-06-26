@@ -37,7 +37,7 @@ The getJSON module provides a function similar to the [jQuery getJSON](https://a
 	mod.getJSON("http://api.openweathermap.org/data/2.5/weather", {q:"munich, de"}, callback, errorCallback);
 		
 	function callback(res){
-		Ti.API.info("getJSON response: "+e.weather[0].description);
+		Ti.API.info("getJSON response: "+res.weather[0].description);
 	}
 	function errorCallback(err){
 		Ti.API.info(err.error);
