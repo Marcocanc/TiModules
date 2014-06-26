@@ -1,6 +1,9 @@
 #Titanium JavaScript modules
 A collection of JavaScript Modules for Titanium mobile
 
+- [TabbedBar](https://github.com/Marcocanc/TiModules#tabbedbar)
+- [getJSON](https://github.com/Marcocanc/TiModules#getjson)
+
 ##TabbedBar
 The tabbedBar module looks and behaves almost exactly like the native iOS element (same options, event listeners etc.). In fact the module will also create the iOS tabbedBar, so it can be used in code that is shared across platforms.
 
