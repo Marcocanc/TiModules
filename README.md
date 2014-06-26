@@ -5,6 +5,7 @@ A collection of JavaScript Modules that create cross-platform versions of iOS na
 The tabbedBar module looks and behaves almost exactly like the native iOS element (same options, event listeners etc.). In fact the module will also create the iOS tabbedBar, so it can be used in code that is shared across platforms.
 
 <img src="https://raw.githubusercontent.com/Marcocanc/TiUIModules/master/TabbedBar/screen.gif" />
+[Example](https://github.com/Marcocanc/TiUIModules/blob/master/TabbedBar/Example/app.js)
 
 ###Usage
 
