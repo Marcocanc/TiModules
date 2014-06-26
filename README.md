@@ -6,8 +6,6 @@ The tabbedBar module looks and behaves almost exactly like the native iOS elemen
 
 <img src="https://raw.githubusercontent.com/Marcocanc/TiUIModules/master/TabbedBar/screen.gif" />
 
-<img src="https://raw.githubusercontent.com/Marcocanc/TiUIModules/master/TabbedBar/screenshot.png" />
-
 ###Usage
 
 Use this module like you would use the native iOS tabbedBar:
