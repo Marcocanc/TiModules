@@ -19,6 +19,14 @@ Use this module like you would use the native iOS tabbedBar:
 
     var tb = require("filename_in_lib_folder");
     var bar = tb.createTabbedBar({labels:["Tab 1", "Tab 2", "Tab 3"], index:0, selectedColor: "#ffffff",tintColor: "#007AFF", top:10, width:"90%"});
+    
+    //set the labels and index programattically after creation
+    bar.labels = ['one', 'two', 'three']; //alternatively use bar.setLabels()
+    bar.index = 2; //alternatively use bar.setIndex()
+    
+    //get the labels and index after creation
+    alert(bar.labels); //alternatively use bar.getLabels()
+    alert(bar.index); //alternatively use bar.getIndex()
 
 
 *Alloy*
