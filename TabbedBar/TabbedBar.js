@@ -92,7 +92,7 @@ module.exports = (function () {
         for (var i = 0; i < options.labels.length; i++) {
             var button = Ti.UI.createButton({
                 bubbleParent: false,
-                title: options.labels[i],
+                title: (typeof options.labels[i] == 'string') ? options.labels[i] : options.labels[i].title,
                 height: "100%",
                 width: 100 / options.labels.length + "%",
                 backgroundColor: barBackgroundColor,
