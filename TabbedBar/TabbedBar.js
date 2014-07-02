@@ -168,7 +168,7 @@ module.exports = (function () {
                 } else {
                     bar.children[c].setTabSelected();
 
-                    bar.index = index;
+                    barIndex = index;
                     //simulate same behavior of the iOS tabbedBar
                     bar.fireEvent("click", {
                         index: index
