@@ -15,9 +15,22 @@ The tabbedBar module looks and behaves almost exactly like the native iOS elemen
 
 Use this module like you would use the native iOS tabbedBar:
 
+*Titanium*
+
     var tb = require("/ui/modules/TabbedBar");
     var bar = tb.createTabbedBar({labels:["Tab 1", "Tab 2", "Tab 3"], index:0, selectedColor: "#ffffff",tintColor: "#007AFF", top:10, width:"90%"});
-    
+
+
+*Alloy*
+
+	<TabbedBar module="filename_in_lib_folder">
+	    <Labels>
+	        <Label>One</Label>
+	        <Label>Two</Label>
+	        <Label>Three</Label>
+	    </Labels>
+	</TabbedBar>
+
 The following additional options are available for android:
 
 - `barBorderWidth` (width of the border)
