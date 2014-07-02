@@ -34,7 +34,6 @@ module.exports = (function () {
         break;
     }
 
-
     function createBar(options) {
         var barBorderWidth,
             barTextColor,
@@ -43,7 +42,9 @@ module.exports = (function () {
             barTintColor,
             barBackgroundColor,
             barWidth,
-            barHeight;
+            barHeight,
+            barLabels,
+            barIndex;
         //setting options/default values
         options.barBorderWidth ? barBorderWidth = options.barBorderWidth : barBorderWidth = _toDp(1);
         options.selectedColor ? barSelectedTextColor = options.selectedColor : barSelectedTextColor = "#ffffff";
@@ -55,9 +56,10 @@ module.exports = (function () {
         };
         options.width ? barWidth = options.width : barWidth = _toDp(200);
         options.height ? barHeight = options.height : barHeight = _toDp(18);
+		barLabels= options.labels;
+		barIndex = options.index;
 
         //Errors & Warnings
-        if (!options.labels || options.labels.length < 2) Ti.API.error("Tabbed Bar needs at least two labels");
         if (barBorderWidth < 1) Ti.API.warn("Borders between buttons may not be visible on devices with <= 160 dpi. Consider using a value >= 1");
 
         //Bar construction
@@ -70,15 +72,6 @@ module.exports = (function () {
             borderWidth: barBorderWidth,
             borderColor: barTintColor,
             layout: "horizontal",
-            index: -1,
-
-            //--------functions--------
-            setIndex: function (ind) {
-                selectTab(ind);
-            },
-            getIndex: function () {
-                return this.index;
-            },
         });
 
         //passing positioning data to the view
@@ -87,44 +80,82 @@ module.exports = (function () {
         if (typeof options.left !== "undefined") bar.left = options.left;
         if (typeof options.right !== "undefined") bar.right = options.right;
 
-
+				
         //create Buttons and add behavior
-        for (var i = 0; i < options.labels.length; i++) {
-            var button = Ti.UI.createButton({
-                bubbleParent: false,
-                title: (typeof options.labels[i] == 'string') ? options.labels[i] : options.labels[i].title,
-                height: "100%",
-                width: 100 / options.labels.length + "%",
-                backgroundColor: barBackgroundColor,
-                color: barTextColor,
-                font: barTextFont,
-                borderWidth: barBorderWidth / 2,
-                borderColor: barTintColor,
-                index: i,
-                //--------functions--------
-                setTabSelected: function () {
-                    this.color = barSelectedTextColor;
-                    this.backgroundColor = barTintColor;
-                },
-                setTabDeselected: function () {
-                    this.backgroundColor = barBackgroundColor;
-                    this.color = barTextColor;
-                }
-            });
-
-            if (typeof options.index !== "undefined") {
-                if (options.index > -1 && options.index == i) {
-                    button.setTabSelected();
-                    bar.index = options.index;
-                }
-            }
-
-            button.addEventListener("click", function (e) {
-                selectTab(e.source.index);
-            });
-
-            bar.add(button);
+        function generateLabels(){
+        	//delete existing labels
+        	if (bar.children && bar.children>0){
+	        	bar.children.forEach(function(button){
+		        	bar.remove(button);
+	        	});
+        	}
+	        for (var i = 0; i < barLabels.length; i++) {
+	            var button = Ti.UI.createButton({
+	                bubbleParent: false,
+	                title: (typeof barLabels[i] == 'string') ? barLabels[i] : barLabels[i].title,
+	                height: "100%",
+	                width: 100 / barLabels.length + "%",
+	                backgroundColor: barBackgroundColor,
+	                color: barTextColor,
+	                font: barTextFont,
+	                borderWidth: barBorderWidth / 2,
+	                borderColor: barTintColor,
+	                index: i,
+	                //--------functions--------
+	                setTabSelected: function () {
+	                    this.color = barSelectedTextColor;
+	                    this.backgroundColor = barTintColor;
+	                },
+	                setTabDeselected: function () {
+	                    this.backgroundColor = barBackgroundColor;
+	                    this.color = barTextColor;
+	                }
+	            });
+	
+	            if (typeof barIndex !== "undefined") {
+	                if (barIndex > -1 && barIndex == i) {
+	                    button.setTabSelected();
+	                }
+	            }
+	
+	            button.addEventListener("click", function (e) {
+	                selectTab(e.source.index);
+	            });
+	
+	            bar.add(button);
+	        }
         }
+        //getters/setters
+        bar.getLabels = function(){
+	        return barLabels;
+        }
+        bar.setLabels = function(labels){
+	        barLabels = labels;
+			generateLabels(); 
+        };
+        Object.defineProperty(bar, "labels", {
+		    get: bar.getLabels,
+		    set: bar.setLabels
+		});
+		
+		bar.setIndex = function(index){
+			barIndex = index;
+			selectTab(index);
+		};
+		bar.getIndex = function(){
+			return barIndex;
+		};
+		
+		Object.defineProperty(bar, "index", {
+		   get: bar.getIndex,
+		   set: bar.setIndex
+		});
+		
+		//initialize the object
+		if (barLabels && barLabels.length >= 2){
+			generateLabels();
+		}
+
 
         return bar;
 
@@ -137,7 +168,7 @@ module.exports = (function () {
                 } else {
                     bar.children[c].setTabSelected();
 
-                    bar.index = index;
+                    barIndex = index;
                     //simulate same behavior of the iOS tabbedBar
                     bar.fireEvent("click", {
                         index: index
