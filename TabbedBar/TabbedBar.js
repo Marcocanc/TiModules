@@ -84,7 +84,7 @@ module.exports = (function () {
         //create Buttons and add behavior
         function generateLabels(){
         	//delete existing labels
-        	if (bar.children && bar.children>0){
+        	if (bar.children && bar.children.length>0){
 	        	bar.children.forEach(function(button){
 		        	bar.remove(button);
 	        	});
