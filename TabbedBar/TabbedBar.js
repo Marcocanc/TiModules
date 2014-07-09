@@ -94,7 +94,11 @@ module.exports = (function () {
 	                bubbleParent: false,
 	                title: (typeof barLabels[i] == 'string') ? barLabels[i] : barLabels[i].title,
 	                height: "100%",
-	                width: 100 / barLabels.length + "%",
+	                // If label width is set use that, otherwise evenly divide
+	                // the bar based on the number of labels. This may cause
+	                // issues if a width is set on some labels but not all labels
+	                // but it is up to the developer to not do that.
+	                width: (typeof barLabels[i].width !== "undefined") ? barLabels[i].width : 100 / barLabels.length + "%",
 	                backgroundColor: barBackgroundColor,
 	                color: barTextColor,
 	                font: barTextFont,
