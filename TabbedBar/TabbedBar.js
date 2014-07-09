@@ -92,7 +92,10 @@ module.exports = (function () {
 	        for (var i = 0; i < barLabels.length; i++) {
 	            var button = Ti.UI.createButton({
 	                bubbleParent: false,
-	                title: (typeof barLabels[i] == 'string') ? barLabels[i] : barLabels[i].title,
+	                // Don't use title if an image is set.
+	                title: (typeof barLabels[i].image !== "undefined") ? "" : (typeof barLabels[i] == "string") ? barLabels[i] : barLabels[i].title,
+	                // Add a backgroundImage if image is set.
+	                backgroundImage: (typeof barLabels[i].image !== "undefined") ? barLabels[i].image : "",
 	                height: "100%",
 	                width: 100 / barLabels.length + "%",
 	                backgroundColor: barBackgroundColor,
