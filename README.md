@@ -17,7 +17,7 @@ Use this module like you would use the native iOS tabbedBar:
 
 *Titanium*
 
-    var tb = require("filename_in_lib_folder");
+    var tb = require("/path_to_module");
     var bar = tb.createTabbedBar({labels:["Tab 1", "Tab 2", "Tab 3"], index:0, selectedColor: "#ffffff",tintColor: "#007AFF", top:10, width:"90%"});
     
     //set the labels and index programattically after creation
