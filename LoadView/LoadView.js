@@ -3,6 +3,7 @@ var loader;
 var show;
 var hide;
 var update;
+var defaultText = L("loading", "Loading...");
 
 switch (Ti.Platform.name) {
     case "iPhone OS":
@@ -11,7 +12,8 @@ switch (Ti.Platform.name) {
 			backgroundImage: null,
 			opacity: 1.0,
 			modal: false,
-			fullscreen: false
+			fullscreen: false,
+			zIndex:1000
 		});
 		var loaderView = Ti.UI.createView({
 			width: Ti.UI.SIZE,
@@ -46,7 +48,18 @@ switch (Ti.Platform.name) {
 		loaderIndicator.show();
 		
 		show = function(text, cancelable, cancelCallback){
-			text ? loaderLabel.setText(text) : loaderLabel.setText("Loading...");
+        	switch(typeof text) {
+				case "boolean":
+					cancelCallback = cancelable;
+					cancelable = text;
+					text = defaultText;
+					break;
+				case "undefined":
+					text=defaultText;
+					break;
+			}
+			loaderLabel.setText(text);
+
 			cancelable ? loader.cancelable=true : loader.cancelable=false;
 			typeof cancelCallback === "function" ? loader.cancelCallback=cancelCallback : loader.cancelCallback=cancelCallback;
 			loader.open();
@@ -55,9 +68,9 @@ switch (Ti.Platform.name) {
 			loader.close();
 		};
 		update = function(text, cancelable, cancelCallback){
-			text ? loaderLabel.setText(text) : loaderLabel.setText("Loading...");
+			text ? loaderLabel.setText(text) : loaderLabel.setText(defaultText);
 			cancelable ? loader.cancelable=true : loader.cancelable=false;
-			typeof cancelCallback === "function"  ? loader.cancelCallback=cancelCallback : loader.cancelCallback=cancelCallback;
+			typeof cancelCallback === "function"  ? loader.cancelCallback=cancelCallback : loader.cancelCallback=false;
 		};
 		
 		loader.addEventListener("click", cancel);
@@ -72,18 +85,31 @@ switch (Ti.Platform.name) {
         });
         
         show = function(text, cancelable, cancelCallback){
-        	text ? loader.setMessage(text) : loader.setMessage("Loading...");
-			loader.show();
+        	switch(typeof text) {
+				case "boolean":
+					cancelCallback = cancelable;
+					cancelable = text;
+					text = defaultText;
+					break;
+				case "undefined":
+					text=defaultText;
+					break;
+			}
+        	loader.setMessage(text);
+        	
 			cancelable ? loader.cancelable=true : loader.cancelable=false;
+			typeof cancelCallback === "function" ? loader.cancelCallback=cancelCallback : loader.cancelCallback=false;
+			loader.show();
         };
         hide = function(){
 			loader.hide();
 		};
 		update = function(text, cancelable, cancelCallback){
-			text ? loader.setMessage(text) : loader.setMessage("Loading...");
+			text ? loader.setMessage(text) : loader.setMessage(defaultText);
 			cancelable ? loader.cancelable=true : loader.cancelable=false;
+			typeof cancelCallback === "function"  ? loader.cancelCallback=cancelCallback : loader.cancelCallback=false;
 		};
-		loader.addEventListener("cancel", function(){cancel();});
+		loader.addEventListener("cancel",cancel);
         break;
     }
     
@@ -94,15 +120,14 @@ function cancel(e) {
 	if (loader.cancelable) {
 		if (Ti.Platform.name === "iPhone OS") hide();
 
-		if ( typeof loader.cancelCallback === "function") loader.cancelCallback();
+		if (loader.cancelCallback) loader.cancelCallback();
 	}
 }
 
     
-  exports.show = show;
-  exports.update = update;
-  exports.hide = hide;
+exports.show = show;
+exports.update = update;
+exports.hide = hide;
   
     
-
 
