@@ -71,7 +71,7 @@ module.exports = (function () {
             borderRadius: _toDp(2.5),
             borderWidth: barBorderWidth,
             borderColor: barTintColor,
-            layout: (typeof barLabels[i].width !== "undefined") ? "horizontal" ? null,
+            layout: (typeof barLabels[i].width == "undefined") ? "horizontal" ? null,
         });
 
         //passing positioning data to the view
