@@ -6,8 +6,8 @@ var update;
 var defaultText = L("loading", "Loading...");
 
 switch (Ti.Platform.name) {
-    case "iPhone OS":
-        loader = Ti.UI.createWindow({
+	case "iPhone OS":
+		loader = Ti.UI.createWindow({
 			backgroundColor: "#6000",
 			backgroundImage: null,
 			opacity: 1.0,
@@ -48,7 +48,7 @@ switch (Ti.Platform.name) {
 		loaderIndicator.show();
 		
 		show = function(text, cancelable, cancelCallback){
-        	switch(typeof text) {
+			switch(typeof text) {
 				case "boolean":
 					cancelCallback = cancelable;
 					cancelable = text;
@@ -76,16 +76,16 @@ switch (Ti.Platform.name) {
 		loader.addEventListener("click", cancel);
 		
 		
-        break;
-    default: //e.g. android
-        loader = Ti.UI.Android.createProgressIndicator({
-            type: Ti.UI.Android.PROGRESS_INDICATOR_INDETERMINANT,
-            message: "",
-            cancelable: false
-        });
-        
-        show = function(text, cancelable, cancelCallback){
-        	switch(typeof text) {
+		break;
+	default: //e.g. android
+		loader = Ti.UI.Android.createProgressIndicator({
+			type: Ti.UI.Android.PROGRESS_INDICATOR_INDETERMINANT,
+			message: "",
+			cancelable: false
+		});
+	
+		show = function(text, cancelable, cancelCallback){
+		switch(typeof text) {
 				case "boolean":
 					cancelCallback = cancelable;
 					cancelable = text;
@@ -95,13 +95,13 @@ switch (Ti.Platform.name) {
 					text=defaultText;
 					break;
 			}
-        	loader.setMessage(text);
-        	
+			loader.setMessage(text);
+			
 			cancelable ? loader.cancelable=true : loader.cancelable=false;
 			typeof cancelCallback === "function" ? loader.cancelCallback=cancelCallback : loader.cancelCallback=false;
 			loader.show();
-        };
-        hide = function(){
+		};
+		hide = function(){
 			loader.hide();
 		};
 		update = function(text, cancelable, cancelCallback){
@@ -110,10 +110,10 @@ switch (Ti.Platform.name) {
 			typeof cancelCallback === "function"  ? loader.cancelCallback=cancelCallback : loader.cancelCallback=false;
 		};
 		loader.addEventListener("cancel",cancel);
-        break;
-    }
-    
-    
+		break;
+	}
+	
+	
 
 function cancel(e) {
 
@@ -124,10 +124,10 @@ function cancel(e) {
 	}
 }
 
-    
+	
 exports.show = show;
 exports.update = update;
 exports.hide = hide;
   
-    
+	
 
