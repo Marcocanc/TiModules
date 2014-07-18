@@ -71,7 +71,7 @@ module.exports = (function () {
             borderRadius: _toDp(2.5),
             borderWidth: barBorderWidth,
             borderColor: barTintColor,
-            layout: "horizontal",
+            layout: (typeof barLabels[i].width !== "undefined") ? "horizontal" ? null,
         });
 
         //passing positioning data to the view
@@ -102,6 +102,7 @@ module.exports = (function () {
 	                // issues if a width is set on some labels but not all labels
 	                // but it is up to the developer to not do that.
 	                width: (typeof barLabels[i].width !== "undefined") ? barLabels[i].width : 100 / barLabels.length + "%",
+	                left: (typeof barLabels[i].width !== "undefined") ? 100 / barLabels.length * i + "%",
 	                backgroundColor: barBackgroundColor,
 	                color: barTextColor,
 	                font: barTextFont,
