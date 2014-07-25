@@ -1,9 +1,7 @@
 //LoadingView Inspired by https://github.com/CaffeinaLab/com.caffeinalab.titanium.loader
-var loader;
-var show;
-var hide;
-var update;
-var defaultText = L("loading", "Loading...");
+var loader, show, hide, update,
+isShowing = false,
+defaultText = L("loading", "Loading...");
 
 switch (Ti.Platform.name) {
 	case "iPhone OS":
@@ -48,6 +46,10 @@ switch (Ti.Platform.name) {
 		loaderIndicator.show();
 		
 		show = function(text, cancelable, cancelCallback){
+			if (isShowing) {
+				update(text, cancelable, cancelCallback);
+				return;
+			}
 			switch(typeof text) {
 				case "boolean":
 					cancelCallback = cancelable;
@@ -63,9 +65,11 @@ switch (Ti.Platform.name) {
 			cancelable ? loader.cancelable=true : loader.cancelable=false;
 			typeof cancelCallback === "function" ? loader.cancelCallback=cancelCallback : loader.cancelCallback=cancelCallback;
 			loader.open();
+			isShowing=true;
 		};
 		hide = function(){
 			loader.close();
+			isShowing=false;
 		};
 		update = function(text, cancelable, cancelCallback){
 			text ? loaderLabel.setText(text) : loaderLabel.setText(defaultText);
@@ -78,6 +82,10 @@ switch (Ti.Platform.name) {
 		
 		break;
 	default: //e.g. android
+		if (isShowing) {
+			update(text, cancelable, cancelCallback);
+			return;
+		}
 		loader = Ti.UI.Android.createProgressIndicator({
 			type: Ti.UI.Android.PROGRESS_INDICATOR_INDETERMINANT,
 			message: "",
@@ -100,9 +108,11 @@ switch (Ti.Platform.name) {
 			cancelable ? loader.cancelable=true : loader.cancelable=false;
 			typeof cancelCallback === "function" ? loader.cancelCallback=cancelCallback : loader.cancelCallback=false;
 			loader.show();
+			isShowing=true;
 		};
 		hide = function(){
 			loader.hide();
+			isShowing=false;
 		};
 		update = function(text, cancelable, cancelCallback){
 			text ? loader.setMessage(text) : loader.setMessage(defaultText);
