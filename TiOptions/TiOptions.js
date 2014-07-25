@@ -1,12 +1,12 @@
 var options={
 	'inputField':{
 		borderStyle: Ti.UI.INPUT_BORDERSTYLE_ROUNDED,
-	    color: 'black',
-	    autocorrect:false,
-	    top: 20,
-	    height:30,
-	    width: "86%",
-	    backgroundColor:"#fff"
+		color: 'black',
+		autocorrect:false,
+		top: 20,
+		height:30,
+		width: "86%",
+		backgroundColor:"#fff"
 	},
 	
 	
@@ -43,16 +43,16 @@ module.exports=function(key, object){
 
 //Merges obj2 into obj1
 function mergeOptions(obj1, obj2) {
-    for (var p in obj2) {
-        try {
-            if (obj2[p].constructor == Object) {
-                obj1[p] = mergeOptions(obj1[p], obj2[p]);
-            } else {
-                obj1[p] = obj2[p];
-            }
-        } catch (e) {
-            obj1[p] = obj2[p];
-        }
-    }
-    return obj1;
+	for (var p in obj2) {
+		try {
+			if (obj2[p].constructor == Object) {
+				obj1[p] = mergeOptions(obj1[p], obj2[p]);
+			} else {
+				obj1[p] = obj2[p];
+			}
+		} catch (e) {
+			obj1[p] = obj2[p];
+		}
+	}
+	return obj1;
 }
