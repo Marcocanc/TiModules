@@ -44,6 +44,7 @@ module.exports = (function () {
             barWidth,
             barHeight,
             barLabels,
+            barButtons,
             barIndex;
         //setting options/default values
         options.barBorderWidth ? barBorderWidth = options.barBorderWidth : barBorderWidth = _toDp(1);
@@ -83,6 +84,7 @@ module.exports = (function () {
         //create Buttons and add behavior
         function generateLabels(){
         	//delete existing labels
+        	buttons = [];
         	if (bar.children && bar.children.length>0){
 	        	bar.children.forEach(function(button){
 		        	bar.remove(button);
@@ -130,19 +132,29 @@ module.exports = (function () {
 	            });
 	
 	            bar.add(button);
+	            buttons.push(button);
 	        }
         }
         //getters/setters
         bar.getLabels = function(){
 	        return barLabels;
-        }
+        };
         bar.setLabels = function(labels){
 	        barLabels = labels;
 			generateLabels(); 
         };
+        
+        bar.getButtons = function(){
+	        return buttons;
+        };
+        
         Object.defineProperty(bar, "labels", {
 		    get: bar.getLabels,
 		    set: bar.setLabels
+		});
+		
+		Object.defineProperty(bar, "buttons", {
+		    get: bar.getButtons
 		});
 		
 		bar.setIndex = function(index){
