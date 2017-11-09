@@ -19,6 +19,7 @@ module.exports = (function () {
     //since the options are compatible with the native iOS tabbed bar, only use the custom bar when the platform isn't iOS
     switch (Ti.Platform.name) {
     case "iPhone OS":
+    case "iOS":
         return {
             createTabbedBar: function (options) {
                 return Ti.UI.iOS.createTabbedBar(options);
